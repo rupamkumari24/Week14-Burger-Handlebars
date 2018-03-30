@@ -1,32 +1,33 @@
 
 
 <div class="container">
-  <br>
-  <div class="jumbotron">
-    <h1 class="text-center">EAT DA BURGER!!!</h1>
-  </div>
+  <center>
+    <div class="row">
+      <div class="col-sm-6">
+        <h2 class="text-center">READY TO DEVOUR!</h2>
+        <div id="ready_to_eat">
 
-  <div class="row">
-    <div class="col-sm-6">
-      <h2 class="text-center">READY TO DEVOUR!</h2>
+          {{#each burgers}}
+            {{#unless this.devoured}}          
 
-        {{#each burgers}}
-          {{#unless this.devoured}}
-              {{this.id}}.
-              {{this.burger_name}}
+                <form action="burgers/update/{{this.id}}?_method=PUT" method="POST">
+                  <div class="form-group">
+                      {{this.id}}.
+                      {{this.burger_name}}                    
+                      <span style="padding-left :15px;">
+                        <button class="btn btn-success devour-button" type="submit" name="devoured" value="1">DEVOUR</button>
+                      </span> 
+                  </div>  
+                </form><br>
 
-              <form action="burgers/update/{{this.id}}?_method=PUT" method="POST">
-                  <button type="submit" name="devoured" value="1">DEVOUR</button>
-              </form>
+                {{burgers/delete-burger}}                
 
-              {{burgers/delete-burger}}
-          {{/unless}}
-        {{/each}}
-    </div>
-
-    <div class="col-sm-6">
-      <h2 class="text-center">DEVOURED!</h2>
-
+            {{/unless}}
+          {{/each}}
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <h2 class="text-center">DEVOURED!</h2>
         {{#each burgers}}
           {{#if this.devoured}}
               {{this.id}}.
@@ -38,18 +39,18 @@
 
           {{/if}}
         {{/each}}
-    </div>
-  </div>
-
-  <div class="row">
-    <h2>Add a burger</h2>
-    <form class="create-update-form" action="burgers/create" method="POST">
-      <div class="form-group">
-        <label for="db">Burger Name:</label>
-        <input type="text" id="db" name="burger_name">
-        <input type="hidden" name="devoured" value="0">
       </div>
-      <button type="submit">Add da burger!</button>
-    </form>
-  </div>
+    </div>
+    <div class="row">
+      <h2>Add a burger</h2>
+      <form class="create-update-form" action="burgers/create" method="POST">
+        <div class="form-group">
+          <label for="db">Burger Name:</label>
+          <input type="text" id="db" name="burger_name">
+          <input type="hidden" name="devoured" value="0">
+          <button type="submit">Add da burger!</button>
+        </div>        
+      </form>
+    </div>
+  </center>
 </div>
